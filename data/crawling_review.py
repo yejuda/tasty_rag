@@ -31,4 +31,5 @@ def crawling_review(place: str):
 
 
 if __name__ == "__main__":
-    print(solution("잉꼬칼국수"))
+    print(crawling_review("잉꼬칼국수"))
+    print(crawling_review("동대문엽기떡볶이"))
