@@ -1,7 +1,7 @@
 from crawling_review import crawling_review
 import pandas as pd
 
-
+#TODO 예약없이 이용대기와 같은 부분 덜어내고 해시태그도 따로 제공하는 기능 추가
 def process_data(text: str):
     reviews = []
     tmp = []

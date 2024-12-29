@@ -2,9 +2,10 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 from selenium import webdriver
 
+
+#TODO 프랜차이즈와 같이 이름이 동일한 검색결과가 많이 나올경우 하나를 특정해서 알려주는 함수 필요
 def crawling_review(place: str):
     url = f"https://map.naver.com/p/search/{place}"
     driver = webdriver.Chrome()
