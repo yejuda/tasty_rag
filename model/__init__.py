@@ -6,6 +6,7 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_upstage import ChatUpstage
 from langchain_core.prompts import ChatPromptTemplate
+from langchain.retrievers import EnsembleRetriever, BM25Retriever
 
 
 # 리뷰 데이터 전처리 함수 ##############
@@ -33,10 +34,20 @@ def review_rag(text):
         embedding=embeddings
     )
 
-    # 리트리버 검색기
-    retriever = db.as_retriever()
+    #TODO 리트리버 검색기 1   -> 리트리버 성능 올리기 @@@@@@@@@@@@@@@@@@@@@@@ 앙상블 리트리버!
+    # retriever = db.as_retriever()
+    bm25_retriever = BM25Retriever.from_documents(text_document)
+    bm25_retriever.k = 5
+    
+    # 리트리버 검색기 2 - Dense Retriever
+    db_retriever = db.as_retriever(search_kwargs={'k':5})  # k는 반환할 문서 수
 
-    # 프롬프트 설정
+    # 리트리버 앙상블
+    ensemble_retriever = EnsembleRetriever(
+        retrievers = [bm25_retriever, db_retriever], weights = [0.5, 0.5]
+    )
+    
+    #TODO 프롬프트 설정 -> 예시 추가하기!
     rag_prompt = ChatPromptTemplate.from_template(
         """
         당신은 식당 리뷰 분석 전문가 AI입니다.  
@@ -65,7 +76,7 @@ def review_rag(text):
     llm = ChatUpstage(model="solar-pro", temperature=0)  # 같은 질문에 항상 같은 답변을 하도록 설정
      
     # RAG 체인 구성
-    rag_chain = ({"context": retriever, "question": RunnablePassthrough()}  # 질문과 문맥 전달
+    rag_chain = ({"context": ensemble_retriever, "question": RunnablePassthrough()}  # 질문과 문맥 전달
                  | rag_prompt
                  | llm
                  | StrOutputParser()
