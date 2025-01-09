@@ -27,11 +27,11 @@ def add_restaurant(name: str, address: str, reviews: List[str]):
         db_session.commit()
 
 
-# def remove_restaurant(name: str):
-#     target = db_session.query(Restaurant).filter(Restaurant.name == name).first()
-#     if target:
-#         db_session.delete(target)
-#         db_session.commit()
+def remove_restaurant(name: str):
+    target = db_session.query(Restaurant).filter(Restaurant.name == name).first()
+    if target:
+        db_session.delete(target)
+        db_session.commit()
 
 def get_restaurant_db(name: str) -> Dict[str, List[str]]:
     target = db_session.query(Restaurant).filter(Restaurant.name == name).first()
@@ -42,17 +42,21 @@ def get_restaurant_db(name: str) -> Dict[str, List[str]]:
         return {"name": target.name, "address": target.address, "reviews": review_arr}
     return {}
 
-# def show_restaurant() -> Dict[str, List[str]]:
-#     lists = db_session.query(Restaurant).all()
-#     result = {}
-#     for li in lists:
-#         result[li.name] = [li.address, li.review]
-#     return result
+def show_restaurant() -> List[Dict[str, str]]:
+    lists = db_session.query(Restaurant).all()
+    result = []
+    for li in lists:
+        result.append({
+            "name": li.name,
+            "address": li.address,
+            "reviews": [r.context for r in li.reviews],
+        })
+    return result
 
 
 if __name__ == "__main__":
-    # add_restaurant("의현", "남양주시", ["맛있어요"])
+    add_restaurant("의현", "남양주시", ["맛있어요"])
     print(get_restaurant_db("의현"))
-    # print(show_restaurant())
-    # remove_restaurant("의현")
-    # print(show_restaurant())
+    print(show_restaurant())
+    remove_restaurant("의현")
+    print(show_restaurant())
