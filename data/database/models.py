@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, Integer, Text, ForeignKey
 from sqlalchemy.orm import relationship
 
-from sqlite_base import Base
+from .sqlite_base import Base
 
 
 class Restaurant(Base):

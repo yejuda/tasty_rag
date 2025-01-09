@@ -1,7 +1,7 @@
 from typing import Dict, List
 
-from sqlite_base import SessionLocal, init_db
-from models import Restaurant, Review
+from .sqlite_base import SessionLocal, init_db
+from .models import Restaurant, Review
 
 
 init_db()
