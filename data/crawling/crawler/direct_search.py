@@ -5,11 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium import webdriver
 
 
-# options = webdriver.ChromeOptions()
-# options.add_argument('--headless')  # 브라우저를 열지 않고 실행
-# options.add_argument('--no-sandbox')  # 리눅스 환경에서 원활하게 실행되도록
-# options.add_argument('--disable-dev-shm-usage')  # 메모리 용량을 더 효율적으로 사용하도록
-
 driver = webdriver.Chrome()
 wait = WebDriverWait(driver, 5)
 

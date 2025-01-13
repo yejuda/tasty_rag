@@ -1,31 +1,37 @@
-'''
-1. Selenium으로 원하는 리뷰 페이지 이동
-2. bs4로 현재 리뷰 내용들 가져오기
-'''
-
 from selenium import webdriver
-from selenium.webdriver import ChromeOptions
-from data.crawling.crawler.function import switch_frame, get_element
-from bs4 import BeautifulSoup
 import time
 
-options = ChromeOptions()
-# options.add_argument('--headless')
+from frame_utils import switch_frame
+from element_utils import get_element, get_review, move_to_link
 
-driver = webdriver.Chrome(options=options)
 
 def search_place(place: str):
-    url = f"https://map.naver.com/p/search/{place}"
-    driver.get(url)
-    time.sleep(5)
-    switch_frame(driver=driver, frame_name="searchIframe")
-    html = driver.page_source
-    soup = BeautifulSoup(html, 'html.parser')
-    driver.close()
-    return soup
-    # tmp = get_element(driver=driver, classname=".place_on_pcmap")
-    # return tmp
+    driver = webdriver.Chrome()
+    try:
+        move_to_link(driver=driver, url=f"https://map.naver.com/p/search/{place}")
+        switch_frame(driver=driver, frame_name="searchIframe")
+    
+        reviews = get_review(driver=driver)
+    
+    except ValueError:
+        first_place = get_element(driver=driver, classname=".Ryr1F > ul > .UEzoS.rTjJo > .CHC5F > a")
+        first_place.click()
+        time.sleep(5)
+
+        switch_frame(driver=driver, frame_name="root")
+        switch_frame(driver=driver, frame_name="entryIframe")
+        
+        reviews = get_review(driver=driver)
+        
+    except Exception as e:
+        print(e)
+
+    finally:
+        driver.close()
+
+    return reviews
 
 
 if __name__ == "__main__":
     print(search_place("스타벅스"))
+    # print(search_place("잉꼬칼국수"))
