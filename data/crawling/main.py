@@ -1,7 +1,7 @@
 from typing import Dict, List
 
-from .direct_search import get_restaurant_directly
-from .address_search import get_restaurant_address
+from .crawler.direct_search import get_restaurant_directly
+from .crawler.scraping_logic import get_restaurant_address
 
 
 def process_data(text: str) -> List[str]:

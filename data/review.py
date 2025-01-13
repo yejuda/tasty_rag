@@ -1,5 +1,5 @@
 from database.db_crud import get_restaurant_db, add_restaurant
-from crawling.data_processing import get_review_ensemble
+from data.crawling.main import get_review_ensemble
 
 
 def get_review(place: str):
