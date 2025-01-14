@@ -1,8 +1,8 @@
 from selenium import webdriver
 import time
 
-from frame_utils import switch_frame
-from element_utils import get_element, get_review, move_to_link
+from .frame_utils import switch_frame
+from .element_utils import get_element, get_review, move_to_link
 
 
 def search_place(place: str):
@@ -34,4 +34,4 @@ def search_place(place: str):
 
 if __name__ == "__main__":
     print(search_place("스타벅스"))
-    # print(search_place("잉꼬칼국수"))
+    print(search_place("잉꼬칼국수"))
