@@ -9,7 +9,7 @@ class Restaurant(Base):
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(10), nullable=False)
-    address = Column(String(50), nullable=False)
+    address = Column(String(50))
 
     reviews = relationship("Review", back_populates="restaurant")
 
