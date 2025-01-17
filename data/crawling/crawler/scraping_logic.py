@@ -1,37 +1,51 @@
 from selenium import webdriver
 import time
 
-from .frame_utils import switch_frame
-from .element_utils import get_element, get_review, move_to_link
+from frame_utils import switch_frame
+from element_utils import is_first_place, get_review_url, move_to_link, move_to_first_place
+from bs_utils import parsing_bs_address, parsing_bs_review
 
+first_place_css = "#_pcmap_list_scroll_container > ul > li:nth-child(1) > div:nth-child(1) > a > div > div > span"
 
-def search_place(place: str):
+#TODO 처음부터 검색으로 나오는 경우 처리
+def get_review(place: str):
     driver = webdriver.Chrome()
-    try:
-        move_to_link(driver=driver, url=f"https://map.naver.com/p/search/{place}")
-        switch_frame(driver=driver, frame_name="searchIframe")
-    
-        reviews = get_review(driver=driver)
-    
-    except ValueError:
-        first_place = get_element(driver=driver, classname=".Ryr1F > ul > .UEzoS.rTjJo > .CHC5F > a")
-        first_place.click()
-        time.sleep(5)
+    move_to_link(driver=driver, url=f"https://map.naver.com/p/search/{place}")
+    time.sleep(3)
 
-        switch_frame(driver=driver, frame_name="root")
+    switch_frame(driver=driver, frame_name="searchIframe")
+    is_first = is_first_place(driver)
+    switch_frame(driver=driver, frame_name="root")
+
+    if is_first:
+        switch_frame(driver=driver, frame_name="searchIframe")
+        move_to_first_place(driver)
         switch_frame(driver=driver, frame_name="entryIframe")
         
-        reviews = get_review(driver=driver)
-        
-    except Exception as e:
-        print(e)
+        driver.get(get_review_url(driver))
+        time.sleep(3)
+    reviews = parsing_bs_review(driver)
 
-    finally:
-        driver.close()
+    driver.close()
 
     return reviews
 
 
 if __name__ == "__main__":
-    print(search_place("스타벅스"))
-    print(search_place("잉꼬칼국수"))
+    places = [
+        "부엉이산장",
+        "카페베베",
+        "리얼파스타",
+        "청록미나리식당",
+        '미성식당찌개',
+        '대접육류',
+        '구들장왕돌판삼겹살',
+        '잉꼬칼국수',
+        '아쎄커 유쎄피카페',
+        "로디어카페",
+        "아띠카페카페"
+    ]
+    result = {}
+    for place in places:
+        result[place] = get_review(place)
+    print(result)

@@ -1,5 +1,5 @@
 from database.db_crud import get_restaurant_db, add_restaurant
-from data.crawling.main import get_review_ensemble
+from crawling.main import get_review_data
 
 
 def get_review(place: str):
@@ -7,7 +7,7 @@ def get_review(place: str):
     place_data = get_restaurant_db(place)
     if not place_data:
         try:
-            place_data = get_review_ensemble(place)
+            place_data = get_review_data(place)
             add_restaurant(name=place_data['name'], address=place_data["address"], reviews=place_data["reviews"])
         except Exception as e:
             print(f"리뷰를 가져오는 중 오류 발생: {e}")
