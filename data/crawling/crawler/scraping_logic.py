@@ -1,9 +1,9 @@
 from selenium import webdriver
 import time
 
-from frame_utils import switch_frame
-from element_utils import get_review_url, move_to_link, move_to_first_place
-from bs_utils import parsing_bs_address, parsing_bs_review
+from .frame_utils import switch_frame
+from .element_utils import get_review_url, move_to_link, move_to_first_place
+from .bs_utils import parsing_bs_address, parsing_bs_review
 
 first_place_css = "#_pcmap_list_scroll_container > ul > li:nth-child(1) > div:nth-child(1) > a > div > div > span"
 
