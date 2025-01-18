@@ -2,33 +2,32 @@ from selenium import webdriver
 import time
 
 from frame_utils import switch_frame
-from element_utils import is_first_place, get_review_url, move_to_link, move_to_first_place
+from element_utils import get_review_url, move_to_link, move_to_first_place
 from bs_utils import parsing_bs_address, parsing_bs_review
 
 first_place_css = "#_pcmap_list_scroll_container > ul > li:nth-child(1) > div:nth-child(1) > a > div > div > span"
 
-#TODO 처음부터 검색으로 나오는 경우 처리
+
 def get_review(place: str):
     driver = webdriver.Chrome()
     move_to_link(driver=driver, url=f"https://map.naver.com/p/search/{place}")
     time.sleep(3)
 
-    switch_frame(driver=driver, frame_name="searchIframe")
-    is_first = is_first_place(driver)
-    switch_frame(driver=driver, frame_name="root")
-
-    if is_first:
+    try:
         switch_frame(driver=driver, frame_name="searchIframe")
         move_to_first_place(driver)
+        address = parsing_bs_address(driver)
+        switch_frame(driver=driver, frame_name="entryIframe")   
+    except:
         switch_frame(driver=driver, frame_name="entryIframe")
-        
+        address = parsing_bs_address(driver)
+    finally:
         driver.get(get_review_url(driver))
         time.sleep(3)
-    reviews = parsing_bs_review(driver)
-
+        reviews = parsing_bs_review(driver)
     driver.close()
 
-    return reviews
+    return reviews, address
 
 
 if __name__ == "__main__":
@@ -46,6 +45,6 @@ if __name__ == "__main__":
         "아띠카페카페"
     ]
     result = {}
-    for place in places:
+    for place in places[:3]:
         result[place] = get_review(place)
     print(result)

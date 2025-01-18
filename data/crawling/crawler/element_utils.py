@@ -42,6 +42,7 @@ def move_to_first_place(driver: Chrome):
         first_place.click()
         time.sleep(5)
 
+
 def get_review_url(driver: Chrome) -> str:
     review_page = get_element(driver, "review_link_css_third")
     if not review_page:
