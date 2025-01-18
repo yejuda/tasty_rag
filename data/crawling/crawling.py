@@ -1,18 +1,18 @@
 from typing import Dict, List
 
-from crawler.scraping_logic import get_review
+from .crawler.scraping_logic import get_review
 
 
 def process_data(text: List[str]) -> List[str]:
     reviews = []
     for t in text:
-        if len(t) > 5:
+        if len(t) > 10:
             reviews.append(t)
     return reviews
 
 
 
-def get_review_data(place: str) -> Dict[str, str]:
+def crawling_review(place: str) -> Dict[str, str]:
     try:
         reviews, address = get_review(place)
         return {"name": place, "address": address, "reviews": process_data(reviews)}
@@ -37,5 +37,5 @@ if __name__ == "__main__":
     ]
     result = []
     for place in places:
-        result.append(get_review_data(place))
+        result.append(crawling_review(place))
     print(result)

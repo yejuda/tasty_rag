@@ -9,7 +9,7 @@ db_session = SessionLocal()
 
 
 def search_restaurant(name: str) -> bool:
-    if db_session.query(Restaurant.name == name).first():
+    if db_session.query(Restaurant).filter(Restaurant.name == name).first():
         return True
     return False
 
@@ -55,8 +55,4 @@ def show_restaurant() -> List[Dict[str, str]]:
 
 
 if __name__ == "__main__":
-    add_restaurant("의현", "남양주시", ["맛있어요"])
-    print(get_restaurant_db("의현"))
-    print(show_restaurant())
-    remove_restaurant("의현")
-    print(show_restaurant())
+    print(search_restaurant("카페베베"))
