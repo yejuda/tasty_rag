@@ -6,7 +6,7 @@ from .crawler.scraping_logic import get_review
 def process_data(text: List[str]) -> List[str]:
     reviews = []
     for t in text:
-        if len(t) > 10:
+        if len(t) > 20:
             reviews.append(t)
     return reviews
 
