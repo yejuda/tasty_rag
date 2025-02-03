@@ -70,7 +70,7 @@ def review_rag(text):
         """
     )
 
-
+    # TODO 더 작은 모델로 바꿔서 진행하기
     # LLM 설정 (한국어에 특화)
     model_name = "beomi/KoAlpaca-Polyglot-5.8B"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
