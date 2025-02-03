@@ -1,5 +1,5 @@
-from database.db_crud import get_restaurant_db, add_restaurant
-from crawling.crawling import crawling_review
+from .database.db_crud import get_restaurant_db, add_restaurant
+from .crawling.crawling import crawling_review
 
 
 def get_review(place: str):
