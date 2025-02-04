@@ -24,8 +24,8 @@ if __name__ == "__main__":
 
     hf = get_embeddings("jhgan/ko-sbert-nli")
     
-    query = hf.embed_query("홍길동은 아버지를 아버지라 부르지 못하였습니다. 홍길동 아버지의 이름은 무엇입니까?")  # 유저 질문문
-    answer = hf.embed_query("홍길동의 아버지는 엄했습니다.")  #가장 이상적인인
+    query = hf.embed_query("홍길동은 아버지를 아버지라 부르지 못하였습니다. 홍길동 아버지의 이름은 무엇입니까?")  # 유저 질문
+    answer = hf.embed_query("홍길동의 아버지는 엄했습니다.")  # 가장 이상적인
 
     query_2 = np.array(query).reshape(1, -1)
     answer_2 = np.array(answer).reshape(1, -1)

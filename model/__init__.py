@@ -3,7 +3,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_community.llms import Ollama
 
 from .embedding import get_embeddings
-from .prompt import rag_prompt, translate_prompt
+from .prompt import rag_prompt 
 from .text_splitter import get_text_spliter
 from .retriever import get_ensemble_retriever
 
@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def review_rag(texts: List[str]):
+def review_rag(texts: List[str]):  # 여러 개의 리뷰가 리스트에 담겨져 있음
     ensemble_retriever = get_ensemble_retriever(get_text_spliter(texts), get_embeddings(model_name="jhgan/ko-sroberta-multitask"))
 
     # Ollama LLM 설정
@@ -25,10 +25,7 @@ def review_rag(texts: List[str]):
                  | StrOutputParser()
                  )
     
-    # translate_chain = translate_prompt | llm | StrOutputParser()
-    
     result = rag_chain.invoke("이 리뷰 분석해서 한국어로 이야기해줘. 리뷰를 보고 해당 식당을 갈지 말지 결정할거야.")
-    # result = translate_chain.invoke(ko)
 
     return result
     

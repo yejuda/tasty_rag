@@ -34,12 +34,12 @@ def get_ensemble_retriever(text_document: Document, embeddings, k=20):  # k는 �
     ensemble_retriever = EnsembleRetriever(                         # 리트리버 앙상블 
         retrievers = [em25, db], weights = [0.5, 0.5]
     )
-
     return ensemble_retriever
 
 
 if __name__ == "__main__":
     from model.embedding import get_embeddings
+    
     docs = [
         Document(
             page_content="금융보험은 장기적인 자산 관리와 위험 대비를 목적으로 고안된 금융 상품입니다."
