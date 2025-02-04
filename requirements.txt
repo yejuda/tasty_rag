@@ -11,3 +11,4 @@ chromadb
 kiwipiepy
 langgraph
 python-dotenv
+bs4

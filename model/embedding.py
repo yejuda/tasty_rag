@@ -5,7 +5,7 @@ from typing import List
 def get_embeddings(model_name: str) -> 'HuggingFaceEmbeddings':
     embeddings = HuggingFaceEmbeddings(
         model_name=model_name,
-        model_kwargs={'device': 'cuda'},
+        # model_kwargs={'device': 'cuda'},
     )
     return embeddings
 
