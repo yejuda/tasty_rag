@@ -1,12 +1,12 @@
 ## 폴더 구조
 ```
-model/
-├── embedding.py         # 임베딩 생성 모듈
-├── text_splitter.py     # 텍스트 분할 처리기
-├── retriever.py         # 정보 검색 시스템
-├── prompt.py            # LLM 프롬프트 템플릿
-├── ollama_test.py       # Ollama 모델 테스트 스크립트
-└── __init__.py          # RAG 시스템 메인 모듈
+model/                 # LLM 관련 디렉토리
+├── __init__.py        # RAG 시스템 메인 모듈
+├── embedding.py       # 임베딩 생성 모듈
+├── text_splitter.py   # 텍스트 분할 처리기
+├── retriever.py       # 정보 검색 시스템
+├── prompt.py          # LLM 프롬프트 템플릿
+└── ollama_test.py     # Ollama 모델 테스트 스크립트
 ```
 
 ## 파일 설명
