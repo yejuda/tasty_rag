@@ -12,3 +12,4 @@ kiwipiepy
 langgraph
 python-dotenv
 bs4
+django
