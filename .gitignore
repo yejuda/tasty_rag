@@ -3,3 +3,5 @@ __pycache__/
 tasty_rag
 *.db
 venv/
+*.sqlite3
+*.cmd
