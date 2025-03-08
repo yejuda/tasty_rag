@@ -5,3 +5,4 @@ tasty_rag
 venv/
 *.sqlite3
 *.cmd
+
