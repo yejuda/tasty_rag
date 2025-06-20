@@ -1,0 +1,15 @@
+selenium
+requests
+sqlalchemy
+
+langchain
+langchain-community
+langchain-huggingface
+sentence-transformers
+rank_bm25
+chromadb
+kiwipiepy
+langgraph
+python-dotenv
+bs4
+django
