@@ -16,10 +16,9 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
-from rag_app.views import hello_rest_api
+from django.urls import path, include
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path('api/hello/', hello_rest_api, name='hello_rest_api'),
+    path('admin/', admin.site.urls),
+    path('api/', include('api.urls')), # /api/로 API 엔드포인트 연결
 ]
